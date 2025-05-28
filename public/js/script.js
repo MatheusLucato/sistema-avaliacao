@@ -156,8 +156,23 @@ function validarPontuacao() {
 function formatarData(dataStr) {
     if (!dataStr) return '';
     
-    const [ano, mes, dia] = dataStr.split('-');
-    return `${dia}/${mes}/${ano}`;
+    try {
+        const data = new Date(dataStr);
+        
+        if (isNaN(data.getTime())) {
+            console.error('Data inválida:', dataStr);
+            return 'Data inválida';
+        }
+        
+        const dia = String(data.getDate()).padStart(2, '0');
+        const mes = String(data.getMonth() + 1).padStart(2, '0'); // Mês começa em 0
+        const ano = data.getFullYear();
+        
+        return `${dia}/${mes}/${ano}`;
+    } catch (error) {
+        console.error('Erro ao formatar data:', error);
+        return 'Data inválida';
+    }
 }
 
 function gerarEstrelas(quantidade) {
@@ -296,7 +311,10 @@ async function carregarAvaliacoes() {
         
         console.log('Dados recebidos do servidor:', avaliacoes);
         if (avaliacoes.length > 0) {
-            console.log('Exemplo de avaliação:', avaliacoes[0], 'ID:', avaliacoes[0]._id);
+            console.log('Exemplo de avaliação:', avaliacoes[0]);
+            console.log('Formato da data_experiencia:', avaliacoes[0].data_experiencia);
+            // Testar a formatação da data
+            console.log('Data formatada:', formatarData(avaliacoes[0].data_experiencia));
         }
         
         if (avaliacoes.length === 0) {
