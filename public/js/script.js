@@ -194,6 +194,38 @@ function censurarTelefone(telefone) {
     }
 }
 
+function censurarEmail(email) {
+    if (!email) return '';
+    
+    const partes = email.split('@');
+    if (partes.length !== 2) return '****@****.***';
+    
+    const usuario = partes[0];
+    const dominio = partes[1];
+    
+    let usuarioCensurado = '';
+    if (usuario.length <= 2) {
+        usuarioCensurado = '*'.repeat(usuario.length);
+    } else {
+        usuarioCensurado = usuario.substring(0, 1) + '*'.repeat(usuario.length - 2) + usuario.substring(usuario.length - 1);
+    }
+    
+    const dominioPartes = dominio.split('.');
+    if (dominioPartes.length < 2) return `${usuarioCensurado}@****.***`;
+    
+    const dominioNome = dominioPartes[0];
+    const extensao = dominioPartes.slice(1).join('.');
+    
+    let dominioCensurado = '';
+    if (dominioNome.length <= 2) {
+        dominioCensurado = '*'.repeat(dominioNome.length);
+    } else {
+        dominioCensurado = dominioNome.substring(0, 1) + '*'.repeat(dominioNome.length - 2) + dominioNome.substring(dominioNome.length - 1);
+    }
+    
+    return `${usuarioCensurado}@${dominioCensurado}.${extensao}`;
+}
+
 function formatarTelefoneExibicao(telefone) {
     if (!telefone) return '';
     
@@ -225,6 +257,7 @@ function ativarModoAdmin() {
     isAdminMode = true;
     adminStatus.classList.remove('hidden');
     btnAdmin.classList.add('active');
+    avaliacoesLista.classList.add('modo-admin');
     carregarAvaliacoes();
 }
 
@@ -232,6 +265,7 @@ function desativarModoAdmin() {
     isAdminMode = false;
     adminStatus.classList.add('hidden');
     btnAdmin.classList.remove('active');
+    avaliacoesLista.classList.remove('modo-admin');
     carregarAvaliacoes();
 }
 
@@ -349,7 +383,18 @@ async function carregarAvaliacoes() {
                 ? formatarTelefoneExibicao(avaliacao.telefone_avaliador)
                 : censurarTelefone(avaliacao.telefone_avaliador);
             
-            const classeTelefone = isAdminMode ? '' : 'telefone-censurado';
+            const classeTelefone = isAdminMode ? 'telefone-completo' : 'telefone-censurado';
+            
+            // Tratar o email
+            let emailHtml = '';
+            if (avaliacao.email_avaliador) {
+                const emailExibicao = isAdminMode 
+                    ? avaliacao.email_avaliador
+                    : censurarEmail(avaliacao.email_avaliador);
+                
+                const classeEmail = isAdminMode ? 'email-completo' : 'email-censurado';
+                emailHtml = `<div class="${classeEmail}">Email: ${emailExibicao}</div>`;
+            }
             
             if (isAdminMode) {
                 console.log(`Avaliação ${index}:`, avaliacao);
@@ -377,7 +422,7 @@ async function carregarAvaliacoes() {
                         <div class="${classeTelefone}">Tel: ${telefoneExibicao}</div>
                         ${botaoExcluir}
                     </div>
-                    ${avaliacao.email_avaliador ? `<div>Email: ${avaliacao.email_avaliador}</div>` : ''}
+                    ${emailHtml}
                 </div>
             `;
             
