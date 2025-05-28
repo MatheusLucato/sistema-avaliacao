@@ -37,7 +37,25 @@ header {
 
 header h1 {
     color: rgb(255, 100, 0);
+    margin-bottom: 5px;
+}
+
+.posto-info {
+    color: #ffffff;
+    text-align: center;
     margin-bottom: 15px;
+}
+
+.posto-nome {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: rgb(255, 225, 30);
+    margin-bottom: 5px;
+}
+
+.posto-cnpj {
+    font-size: 0.9em;
+    color: #cccccc;
 }
 
 nav {
@@ -138,7 +156,7 @@ textarea,
 select {
     width: 100%;
     padding: 12px;
-    border: 1px solid #444444;
+    border: 2px solid rgb(255, 100, 0);
     border-radius: 4px;
     font-size: 16px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -316,6 +334,7 @@ textarea {
     transition: all 0.3s ease;
     font-size: 24px;
     color: #cccccc;
+    border: 2px solid rgb(255, 100, 0);
 }
 
 .rating label:hover,
@@ -323,6 +342,7 @@ textarea {
 .rating input:checked ~ label {
     background-color: rgb(255, 225, 30);
     color: #333333;
+    border-color: rgb(255, 225, 30);
 }
 
 .success-message {
