@@ -390,22 +390,34 @@ textarea {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
+.list-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
 .filtro-container {
     margin: 20px 0;
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 15px;
-    flex-wrap: wrap;
+}
+
+.filtro-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .filtro-container label {
-    margin-bottom: 0;
-    min-width: 150px;
+    margin: 0;
+    color: rgb(255, 100, 0);
+    font-weight: 600;
+    white-space: nowrap;
 }
 
 .filtro-container select {
-    flex: 1;
-    max-width: 200px;
+    width: 200px;
 }
 
 .admin-status {
@@ -616,11 +628,18 @@ footer {
     
     .filtro-container {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+    }
+    
+    .filtro-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
     }
     
     .filtro-container select {
-        max-width: 100%;
+        width: 100%;
+        min-width: 200px;
     }
     
     .admin-status {
