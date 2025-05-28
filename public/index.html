@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Avaliação</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Avaliação de Atendimento</h1>
+        <nav>
+            <button id="btn-nova-avaliacao" class="nav-button active">Nova Avaliação</button>
+            <button id="btn-listar-avaliacoes" class="nav-button">Ver Avaliações</button>
+            <button id="btn-admin" class="nav-button nav-admin">Admin</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Seção de Nova Avaliação -->
+        <section id="nova-avaliacao-section" class="section active">
+            <div class="container">
+                <div class="form-container">
+                    <h2>Sua opinião é muito importante para nós!</h2>
+                    <p class="subtitle">Por favor, avalie o atendimento recebido:</p>
+                    
+                    <form id="form-avaliacao">
+                        <div class="form-group">
+                            <label for="nome_cliente">Seu Nome:</label>
+                            <input type="text" id="nome_cliente" name="nome_cliente" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nome_funcionario">Nome do Funcionário:</label>
+                            <input type="text" id="nome_funcionario" name="nome_funcionario" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="data_experiencia">Data da Experiência:</label>
+                            <input type="text" id="data_experiencia" name="data_experiencia" placeholder="DD/MM/AAAA" required>
+                            <p class="field-hint">Digite a data em que você foi atendido (formato: DD/MM/AAAA)</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Pontuação (1-5):</label>
+                            <div class="rating-container" id="rating-container">
+                                <div class="rating">
+                                    <input type="radio" id="star5" name="pontuacao" value="5">
+                                    <label for="star5">5</label>
+                                    <input type="radio" id="star4" name="pontuacao" value="4">
+                                    <label for="star4">4</label>
+                                    <input type="radio" id="star3" name="pontuacao" value="3">
+                                    <label for="star3">3</label>
+                                    <input type="radio" id="star2" name="pontuacao" value="2">
+                                    <label for="star2">2</label>
+                                    <input type="radio" id="star1" name="pontuacao" value="1">
+                                    <label for="star1">1</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="comentario">Comentário:</label>
+                            <textarea id="comentario" name="comentario" rows="3" placeholder="Conte-nos sobre sua experiência..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefone_avaliador">Seu Telefone:</label>
+                            <input type="tel" id="telefone_avaliador" name="telefone_avaliador" placeholder="(00) 00000-0000" required>
+                            <p class="field-hint">Digite seu telefone com DDD (a formatação será feita automaticamente)</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email_avaliador">Seu Email (opcional):</label>
+                            <input type="email" id="email_avaliador" name="email_avaliador" placeholder="seu@email.com">
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Enviar Avaliação</button>
+                    </form>
+                </div>
+                
+                <div id="success-message" class="success-message hidden">
+                    <h2>Obrigado pela sua avaliação!</h2>
+                    <p>Sua opinião é muito importante para melhorarmos nosso atendimento.</p>
+                    <button id="btn-new-evaluation" class="btn-primary">Nova Avaliação</button>
+                    <button id="btn-ver-avaliacoes-apos-envio" class="btn-secondary">Ver Avaliações</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Listagem de Avaliações -->
+        <section id="listar-avaliacoes-section" class="section">
+            <div class="container">
+                <div class="list-container">
+                    <h2>Avaliações Recebidas</h2>
+                    <button id="btn-voltar-form" class="btn-secondary">Nova Avaliação</button>
+                    
+                    <div class="filtro-container">
+                        <label for="filtro-pontuacao">Filtrar por Pontuação:</label>
+                        <select id="filtro-pontuacao">
+                            <option value="0">Todas</option>
+                            <option value="5">5 Estrelas</option>
+                            <option value="4">4 Estrelas</option>
+                            <option value="3">3 Estrelas</option>
+                            <option value="2">2 Estrelas</option>
+                            <option value="1">1 Estrela</option>
+                        </select>
+                        
+                        <div id="admin-status" class="admin-status hidden">
+                            <span class="admin-badge">Modo Admin</span>
+                            <button id="btn-sair-admin" class="btn-danger-small">Sair</button>
+                        </div>
+                    </div>
+                    
+                    <div id="avaliacoes-lista" class="lista-avaliacoes">
+                        <p class="empty-message">Carregando avaliações...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de Login Admin -->
+    <div id="modal-admin" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Login Administrativo</h2>
+            <form id="form-admin-login">
+                <div class="form-group">
+                    <label for="admin-senha">Senha:</label>
+                    <input type="password" id="admin-senha" required>
+                </div>
+                <button type="submit" class="btn-primary">Acessar</button>
+            </form>
+            <p id="login-error" class="error-message hidden">Senha incorreta!</p>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div id="modal-confirmar-exclusao" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Confirmar Exclusão</h2>
+            <p>Tem certeza que deseja excluir esta avaliação?</p>
+            <div class="modal-buttons">
+                <button id="btn-confirmar-exclusao" class="btn-danger">Excluir</button>
+                <button id="btn-cancelar-exclusao" class="btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Sistema de Avaliação</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html> 

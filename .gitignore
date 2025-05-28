@@ -1,0 +1,31 @@
+# Dependências
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Banco de dados SQLite local
+*.sqlite
+*.db
+*.sqlite3
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs
+*.log
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Diretórios de IDE/editores
+.idea/
+.vscode/
+*.swp
+*.swo 
