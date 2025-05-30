@@ -37,7 +37,25 @@ header {
 
 header h1 {
     color: rgb(255, 100, 0);
+    margin-bottom: 5px;
+}
+
+.posto-info {
+    color: #ffffff;
+    text-align: center;
     margin-bottom: 15px;
+}
+
+.posto-nome {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: rgb(255, 225, 30);
+    margin-bottom: 5px;
+}
+
+.posto-cnpj {
+    font-size: 0.9em;
+    color: #cccccc;
 }
 
 nav {
@@ -138,7 +156,7 @@ textarea,
 select {
     width: 100%;
     padding: 12px;
-    border: 1px solid #444444;
+    border: 2px solid rgb(255, 100, 0);
     border-radius: 4px;
     font-size: 16px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -316,6 +334,7 @@ textarea {
     transition: all 0.3s ease;
     font-size: 24px;
     color: #cccccc;
+    border: 2px solid rgb(255, 100, 0);
 }
 
 .rating label:hover,
@@ -323,6 +342,7 @@ textarea {
 .rating input:checked ~ label {
     background-color: rgb(255, 225, 30);
     color: #333333;
+    border-color: rgb(255, 225, 30);
 }
 
 .success-message {
@@ -370,22 +390,34 @@ textarea {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
+.list-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
 .filtro-container {
     margin: 20px 0;
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 15px;
-    flex-wrap: wrap;
+}
+
+.filtro-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .filtro-container label {
-    margin-bottom: 0;
-    min-width: 150px;
+    margin: 0;
+    color: rgb(255, 100, 0);
+    font-weight: 600;
+    white-space: nowrap;
 }
 
 .filtro-container select {
-    flex: 1;
-    max-width: 200px;
+    width: 200px;
 }
 
 .admin-status {
@@ -596,11 +628,18 @@ footer {
     
     .filtro-container {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+    }
+    
+    .filtro-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
     }
     
     .filtro-container select {
-        max-width: 100%;
+        width: 100%;
+        min-width: 200px;
     }
     
     .admin-status {
